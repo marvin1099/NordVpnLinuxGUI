@@ -26,12 +26,10 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
-          pip install -r requirements.txt
 
       # Run the bin-installer.py script
       - name: Run bin-installer.py
         run: |
-          source venv/bin/activate
           python bin-installer.py compile noopen
 
       # Verify the compiled file exists
