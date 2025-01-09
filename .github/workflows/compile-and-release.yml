@@ -22,6 +22,12 @@ jobs:
           python-version: 3.11  # Adjust to your version
           
       # Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
       # Run the bin-installer.py script
       - name: Run bin-installer.py
         run: |
