@@ -1,0 +1,58 @@
+name: Build and Release NordVPN-GUI
+
+on:
+  push:
+    tags:
+      - "v*" # Triggers on tags starting with 'v'
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11  # Adjust to your version
+          
+      # Install dependencies
+      # Run the bin-installer.py script
+      - name: Run bin-installer.py
+        run: |
+          source venv/bin/activate
+          python bin-installer.py compile noopen
+
+      # Verify the compiled file exists
+      - name: Check compiled file
+        run: |
+          if [ ! -f NordVPN-GUI ]; then
+            echo "Compiled file NordVPN-GUI not found."
+            exit 1
+          fi
+
+      # Create a release (if not already created)
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref_name || 'manual-trigger' }}
+          release_name: Release ${{ github.ref_name || 'Manual Trigger' }}
+          body: |
+            Compiled binary for NordVPN-GUI.
+          draft: false
+          prerelease: false
+
+      # Upload compiled file as a release asset
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./NordVPN-GUI
+          asset_name: NordVPN-GUI
+          asset_content_type: application/octet-stream
