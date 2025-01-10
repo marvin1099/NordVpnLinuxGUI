@@ -38,9 +38,21 @@ jobs:
           python -m pip install --upgrade pip
 
       # Run the bin-installer.py script
-      - name: Run bin-installer.py
+      - name: Run bin-installer.py with retries
         run: |
-          python bin-installer.py compile noopen
+          retries=2
+          count=0
+          until [ $count -ge $retries ]
+          do
+            python bin-installer.py compile noopen && break
+            count=$((count+1))
+            echo "Attempt $count failed! Retrying in 5 seconds..."
+            sleep 5
+          done
+          if [ $count -ge $retries ]; then
+            echo "Script failed after $retries attempts."
+            exit 1
+          fi
 
       # Verify the compiled file exists
       - name: Check compiled file
