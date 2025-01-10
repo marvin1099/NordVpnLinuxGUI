@@ -249,7 +249,6 @@ def install_dependencies(venv_dir, requirements_path):
 def compile_application(venv_dir):
     """Compile the application using PyInstaller."""
     print("Compiling the application using PyInstaller...")
-    print("\n\n\n\nTEST\n\n\n")
     os.chdir(Path(__file__).parent)
     pyinstaller_command = [
         str(venv_dir / "bin/pyinstaller"),
@@ -266,7 +265,7 @@ def compile_application(venv_dir):
     ]
 
     do_compile = 3
-    while do_compile < 1:
+    while do_compile > 1:
         print(f"Running: {pyinstaller_command}")
         result = subprocess.run(
             pyinstaller_command,
@@ -281,7 +280,7 @@ def compile_application(venv_dir):
 
         if result.returncode != 0:
             do_compile -= 1
-            if do_compile < 1:
+            if do_compile > 1:
                 print(f"Retrying compile {do_compile} times, on compile errror")
         else:
             do_compile = 0
