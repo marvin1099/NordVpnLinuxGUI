@@ -15,6 +15,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Pull newest code
+      - name: Git pull
+        run: |
+          git pull
+
       # Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -26,6 +31,11 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+
+      # Update pip
+      - name: Update pip
+        run: |
+          python -m pip install --upgrade pip
 
       # Run the bin-installer.py script
       - name: Run bin-installer.py
