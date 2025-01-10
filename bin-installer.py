@@ -109,7 +109,7 @@ chmod 755 "{MENU_DESKTOP_FILE}"
 if [ ! -f "{INSTALLED_FILE}" ]; then
     ./NordVPN-GUI
 fi
-    """
+    """ # Restore github syntax highlighting: """   
     INSTALLER.parent.mkdir(parents=True, exist_ok=True)
     with open(INSTALLER, "w") as f:
         f.write(content)
@@ -122,7 +122,7 @@ echo {MENU_DESKTOP_FILE}
 rm "{MENU_DESKTOP_FILE}"
 echo {INSTALLED_FILE}
 rm "{INSTALLED_FILE}"
-    """
+    """ # Restore github syntax highlighting: """
     UNINSTALLER.parent.mkdir(parents=True, exist_ok=True)
     with open(UNINSTALLER, "w") as f:
         f.write(content)
@@ -249,6 +249,7 @@ def install_dependencies(venv_dir, requirements_path):
 def compile_application(venv_dir):
     """Compile the application using PyInstaller."""
     print("Compiling the application using PyInstaller...")
+    print("\n\n\n\nTEST\n\n\n")
     os.chdir(Path(__file__).parent)
     pyinstaller_command = [
         str(venv_dir / "bin/pyinstaller"),
