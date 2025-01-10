@@ -264,6 +264,20 @@ def compile_application(venv_dir):
         Path(__file__).name,
     ]
     subprocess.run(pyinstaller_command, check=True)
+    result = subprocess.run(
+        pyinstaller_command,
+        capture_output=True,
+        text=True,
+        check=False
+    )
+
+    # Print the captured stdout and stderr
+    print("Output:", result.stdout)
+    print("Error:", result.stderr)
+    if result.stderr:
+        print("Exitting for Pyinstaller error")
+        sys.exit()
+    
     result_file = Path("dist") / BIN_NAME
     dest_file = Path(BIN_NAME)
     if dest_file.is_file():
