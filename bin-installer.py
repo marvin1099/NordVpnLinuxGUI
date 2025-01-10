@@ -160,7 +160,7 @@ def create_virtual_environment(venv_dir):
 def install_pyinstaller(venv_dir):
     """Ensure PyInstaller is installed in the virtual environment."""
     print("Installing PyInstaller...")
-    subprocess.run([str(venv_dir / "bin/python"), "-m", "pip", "install", "pip", "setuptools", "wheel", "pyinstaller"], check=True)
+    subprocess.run([str(venv_dir / "bin/python"), "-m", "pip", "install", "pip", "setuptools", "wheel", "jpeg" ,"pyinstaller"], check=True)
     print("PyInstaller installed.")
 
 
