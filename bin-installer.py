@@ -142,6 +142,8 @@ def finalize_installation():
     if "noopen" not in sys.argv[1:]:
         print("Opening the install folder")
         subprocess.run(["xdg-open", f"{INSTALL_DIR}"])
+    else:
+        print("The keyword 'noopen' was in the argument list, skipping opening of install dir")
 
 def check_required_files(required_files):
     """Check if all required files exist."""
@@ -282,9 +284,12 @@ def compile_application(venv_dir):
             do_compile -= 1
             if do_compile > 1:
                 print(f"Retrying compile {do_compile} times, on compile errror")
+            else:
+                print("Could not compile after the attempts")
         else:
             do_compile = 0
-            
+            print("Compilation was finished")
+
     if result.returncode != 0:
         print("Exitting for Pyinstaller, because of error")
         sys.exit(1)
