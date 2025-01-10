@@ -263,7 +263,6 @@ def compile_application(venv_dir):
         BIN_NAME,
         Path(__file__).name,
     ]
-    subprocess.run(pyinstaller_command, check=True)
     result = subprocess.run(
         pyinstaller_command,
         capture_output=True,
